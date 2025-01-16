@@ -20,6 +20,20 @@ export default function TodoList(){
         event.target.reset()
 
     }
+
+    function changeTaskStatus(index){
+        let newTodos=[...todos]
+        newTodos[index].completed=!newTodos[index].completed
+        setTodos(newTodos)
+    }
+
+    function deleteTask(index){
+        let newTodos=[...todos]
+        newTodos.splice(index,1)
+        setTodos(newTodos)
+    }
+
+
     return(
         <div className="container my-5">
             <div className="mx-auto rounded border p-4" style={{width:"500px",backgroundColor:"#08618d"}}>
@@ -38,8 +52,10 @@ export default function TodoList(){
                             {todo.task}
                         </div>
                         <div>
-                        <i className={"h5 me-2 " + (todo.completed ? "bi bi-check-square" : "bi bi-square")}></i>   
-                        <i className="bi bi-trash h5 text-danger"></i>
+                        <i className={"h5 me-2 " + (todo.completed ? "bi bi-check-square" : "bi bi-square")}
+                        style={{cursor:"pointer"}} onClick={()=>changeTaskStatus(index)}></i>   
+                        <i className="bi bi-trash h5 text-danger"
+                        style={{cursor:"pointer"}} onClick={()=>deleteTask(index)}></i>
                         </div>
 
                     </div>
