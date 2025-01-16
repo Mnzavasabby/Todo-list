@@ -1,10 +1,25 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function TodoList(){
 
-    const[todos,setTodos]=useState([{task:"my first task",completed:false},
-        {task:"my second task",completed:true}
-    ])
+    function getStoredTodos(){
+        let data=localStorage.getItem("todos")
+        let json=JSON.parse(data)
+
+        if(json){
+            return json
+        }
+        return []
+
+    }
+
+    const [todos,setTodos]=useState(getStoredTodos())
+    
+    useEffect(()=>{
+        localStorage.setItem("todos",JSON.stringify(todos))
+    }, [todos])
+
+    
 
     function handleSubmit(event){
         event.preventDefault()
